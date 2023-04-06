@@ -34,3 +34,7 @@
 <p align="center">
     <img src="./assets/TSNE.PNG" width="90%" />
 </p>
+
+### 2D descriptor가 찾은 hyperplane과 True
+
+![2D example](https://user-images.githubusercontent.com/59224742/230302804-17f2cee8-eb87-4ce8-9f25-c5a06e7b8c91.gif)
