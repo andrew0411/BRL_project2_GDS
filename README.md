@@ -7,30 +7,30 @@
 
 ## Genetic descriptor search algorithm for predicting hydrogen adsorption free energy of 2D material
 - Scientific Reports [In-preparation]
-- 
+- First author
 
 </br>
 
 ### 2D-TMD (Transition Metal Dichalcogenides) 데이터 셋을 활용하여 촉매 적합도를 나타내는 $\Delta G_H$를 예측하는 전체 frame work
 
 <p align="center">
-    <img src="./assets/Overview.png" width="70%" />
+    <img src="./assets/Overview.png" width="90%" />
 </p>
 
 ### 전체 알고리즘 수도코드
 
 <p align="center">
-    <img src="./assets/algorithm.PNG" width="50%" />
+    <img src="./assets/algorithm.PNG" width="70%" />
 </p>
 
 ### 사용한 genetic operator
 
 <p align="center">
-    <img src="./assets/genetic_operators.PNG" width="70%" />
+    <img src="./assets/genetic_operators.PNG" width="90%" />
 </p>
 
 ### Obtained descriptor가 실제 target의 manifold를 잘 나타낼 수 있다는 것을 정성적으로 확인.
 
 <p align="center">
-    <img src="./assets/TSNE.PNG" width="70%" />
+    <img src="./assets/TSNE.PNG" width="90%" />
 </p>
