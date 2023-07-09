@@ -5,12 +5,12 @@ __all__ = ['make_function']
 class _Function(object):
 
     '''
-    Mathematical relationship 에 대한 representation
+    Representation of a mathematical relationship
 
     Parameters:
         function (callable) -- a function returns a numpy array of the same shape as its argument
         name (str) -- the name of the function
-        arity (int) -- the number of arguments that the function takes (인수를 몇개 가지는 지 : unary or binary operation)
+        arity (int) -- the number of arguments that the function takes (whether it is a unary or binary operation)
     '''
 
     def __init__(self, function, name, arity):
@@ -25,12 +25,12 @@ class _Function(object):
 def make_function(function, name, arity):
     
     '''
-    Function node 와 mathematical representation 만드는 함수
+    Function for creating a function node and its mathematical representation
 
     Parameters:
         function (callable) -- a function returns a numpy array of the same shape as its arguments
         name (str) -- the name of the function
-        arity (int) -- 함수가 받는 인수 개수
+        arity (int) -- the number of arguments that the function takes (whether it is a unary or binary operation)
     '''
 
     args = [np.ones(10) for _ in range(arity)]
@@ -84,12 +84,12 @@ def _protected_inverse(x1):
 
 
 def _power2(x1):
-    '''제곱'''
+    '''Square'''
     return np.power(x1, 2)
 
 
 def _power3(x1):
-    '''세제곱'''
+    '''Cube'''
     return np.power(x1, 3)
 
 add2 = _Function(function=np.add, name='add', arity=2)
