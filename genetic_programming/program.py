@@ -10,15 +10,15 @@ from .utils import check_random_state
 class _Program(object):
 
     """
-    생성된 프로그램에 대한 representation 객체이다.
-
+    A representation object for the generated program.
 
     Parameters:
-        function_set (list) -- A list of valid functions to use in the program, 프로그램을 나타낼 때 사용할 operator list
-        
-        arities (dict) -- A dictionary of the form {arity:[functions]}, 위의 function에 match 되는 인자 수
+        function_set (list) -- A list of valid functions to use in the program, representing the operator list when expressing the program.
 
-        init_depth (tuple of two ints) -- Initial population을 구성하는 프로그램(tree)의 깊이 범위
+        
+        arities (dict) -- A dictionary of the form {arity:[functions]}, matching the number of arguments for the functions mentioned above.
+
+        init_depth (tuple of two ints) -- The depth range of the programs (trees) that make up the initial population.
 
             When combined with `init_method='half and half'` this yields the well-
             known 'ramped half and half' initialization method.
@@ -35,11 +35,11 @@ class _Program(object):
             
         metric (_Fitness object) -- The raw fitness metric.
             
-        p_point_replace (float) -- The probability that any given node will be mutated during point mutation, 주어진 노드에 mutation이 발생할 확률
+        p_point_replace (float) -- The probability that any given node will be mutated during point mutation.
             
-        parsimony_coefficient (float) -- large program에 penalty를 준다. Bloat 현상을 없앨 수 있고, 이를 통해 더 understandable한 result 얻을 수 있음, tuning이 많이 필요
+        parsimony_coefficient (float) -- Penalty is applied to large programs. This helps eliminate bloat phenomenon and obtain more understandable results. It often requires tuning.
 
-        random_state (RandomState instance) -- int 또는 None 쓰면 안됨, random number generator
+        random_state (RandomState instance) -- Avoid using int or None, use a random number generator.
             
         feature_names : list, optional (default=None)
             Optional list of feature names, used purely for representations in
@@ -113,7 +113,7 @@ class _Program(object):
 
     def build_program(self, random_state):
         """
-        Build a naive random program, 프로그램 생성해주기
+        Build a naive random program, generating the program in the process.
 
         Parameters:
             random_state (RandomState instance) -- The random number generator.
@@ -162,7 +162,7 @@ class _Program(object):
                 while terminal_stack[-1] == 0:
                     terminal_stack.pop()
                     if not terminal_stack:
-                        return program # 이 때 program 이 생성됨
+                        return program # At this point, the program is generated.
                     terminal_stack[-1] -= 1
 
         # We should never get here
