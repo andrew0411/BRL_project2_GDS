@@ -141,9 +141,7 @@ def _parallel_evolve(n_programs, parents, X, y, sample_weight, seeds, params):
 class BaseSymbolic(BaseEstimator, metaclass=ABCMeta):
 
     """
-    Symbolic regression + Genetic algorithm의 Base 클래스
-
-    Base class for symbolic regression
+    Base class for Symbolic Regression + Genetic Algorithm
     """
 
     @abstractmethod
@@ -202,13 +200,13 @@ class BaseSymbolic(BaseEstimator, metaclass=ABCMeta):
 
     def _verbose_reporter(self, run_details=None):
         """
-        A report of the progress of the evolution process, Evolution 과정을 어떻게 보여줄 것인지
+        A report detailing the progress of the evolution process and how it will be displayed.
 
         Parameters:
             run_details (dict) -- Information about the evolution.
             
         """
-        if run_details is None: # run_details = None 이면 해당 항목만 출력 
+        if run_details is None: # If run_details = None, only the specified items will be output. 
                                 # (population average | best individual | generation | length | fitness | length | fitness | OOb fitness | time left)
             print('    |{:^25}|{:^42}|'.format('Population Average',
                                                'Best Individual'))
@@ -268,7 +266,7 @@ class BaseSymbolic(BaseEstimator, metaclass=ABCMeta):
 
         _, self.n_features_ = X.shape
 
-        # hall_of_fame 이 잘못 되었는지 check
+        # Check if hall_of_fame is valid
         hall_of_fame = self.hall_of_fame
         if hall_of_fame is None:
             hall_of_fame = self.population_size
@@ -277,7 +275,7 @@ class BaseSymbolic(BaseEstimator, metaclass=ABCMeta):
                              'population_size (%d).' % (self.hall_of_fame,
                                                         self.population_size))
 
-        # n_components 잘못 되었는지 check
+        # Check if n_components is valid
         n_components = self.n_components
         if n_components is None:
             n_components = hall_of_fame
@@ -286,7 +284,7 @@ class BaseSymbolic(BaseEstimator, metaclass=ABCMeta):
                              'hall_of_fame (%d).' % (self.n_components,
                                                      self.hall_of_fame))
 
-        # 해당 유전 알고리즘을 실행하기 전에 사용할 함수들의 집합 (_function_set)이 functioins.py 파일 내부에 사전 정의되어있는지 check
+        # Check if the set of functions to be used (_function_set) is pre-defined in the functions.py file
         self._function_set = []
         for function in self.function_set:
             if isinstance(function, str):
@@ -300,7 +298,7 @@ class BaseSymbolic(BaseEstimator, metaclass=ABCMeta):
                 raise ValueError('invalid type %s found in `function_set`.'
                                  % type(function))
         
-        # _function_set 이 None 일 경우 error 리턴
+        # Return an error if _function_set is None
         if not self._function_set:
             raise ValueError('No valid functions found in `function_set`.')
 
@@ -311,7 +309,7 @@ class BaseSymbolic(BaseEstimator, metaclass=ABCMeta):
             self._arities[arity] = self._arities.get(arity, [])
             self._arities[arity].append(function)
 
-        # 해당 유전 알고리즘을 실행하기 전에 metric이 사전에 정의되어있는 것들인지 check
+        # Check if the metrics used are pre-defined
         if isinstance(self.metric, _Fitness):
             self._metric = self.metric
         elif isinstance(self, RegressorMixin):
@@ -320,7 +318,8 @@ class BaseSymbolic(BaseEstimator, metaclass=ABCMeta):
                 raise ValueError('Unsupported metric: %s' % self.metric)
             self._metric = _fitness_map[self.metric]
 
-        # _method_probs 라는 배열에 해당 유전 알고리즘에서 쓰일 probability 들 저장 (cross_over, subtree_mutation, hoist_mutation, point_mutation) 을 합하면 1 이하여야 함.
+        # Check if the probabilities used in the genetic algorithm (cross_over, subtree_mutation, hoist_mutation, point_mutation) 
+        # are stored in the _method_probs array and their sum is less than or equal to 1
         self._method_probs = np.array([self.p_crossover,
                                        self.p_subtree_mutation,
                                        self.p_hoist_mutation,
@@ -328,42 +327,42 @@ class BaseSymbolic(BaseEstimator, metaclass=ABCMeta):
 
         self._method_probs = np.cumsum(self._method_probs)
 
-        # 해닫 유전 알고리즘에서 쓰일 probability 들의 합이 1을 초과하는지 check
+        # Check if the sum of probabilities used in the genetic algorithm exceeds 1
         if self._method_probs[-1] > 1:
             raise ValueError('The sum of p_crossover, p_subtree_mutation, '
                              'p_hoist_mutation and p_point_mutation should '
                              'total to 1.0 or less.')
 
-        # 해당 유전 알고리즘의 initial population을 설정할 때 사전에 정의된 방법 중에 속해있는지 check
+        # Check if the method used to set the initial population is one of the pre-defined methods
         if self.init_method not in ('half and half', 'grow', 'full'):
             raise ValueError('Valid program initializations methods include '
                              '"grow", "full" and "half and half". Given %s.'
                              % self.init_method)
 
-        # 해당 유전 알고리즘의 주어진 argument인 const_range가 길이가 2인 tuple이거나 None인지 check
+        # Check if the const_range argument provided for the genetic algorithm is a tuple of length 2 or None
         if not((isinstance(self.const_range, tuple) and
                 len(self.const_range) == 2) or self.const_range is None):
             raise ValueError('const_range should be a tuple with length two, '
                              'or None.')
 
-        #해당 유전 알고리즘의 주어진 argument인 init_depth가 길이가 2인 tuple인지 check
+        # Check if the init_depth argument provided for the genetic algorithm is a tuple of length 2.
         if (not isinstance(self.init_depth, tuple) or
                 len(self.init_depth) != 2):
             raise ValueError('init_depth should be a tuple with length two.')
 
-        # 해당 유전 알고리즘의 주어진 argument인 init_depth (a, b)에서 a가 더 작은지 check
+        # Check if the first element of the init_depth argument in the genetic algorithm (a, b) is smaller.
         if self.init_depth[0] > self.init_depth[1]:
             raise ValueError('init_depth should be in increasing numerical '
                              'order: (min_depth, max_depth).')
 
-        # 해당 유전 알고리즘에 주어진 X의 feature수와 feature_names의 길이가 동일한지 check
+        # Check if the number of features in X matches the length of feature_names in the genetic algorithm.
         if self.feature_names is not None:
             if self.n_features_ != len(self.feature_names):
                 raise ValueError('The supplied `feature_names` has different '
                                  'length to n_features. Expected %d, got %d.'
                                  % (self.n_features_, len(self.feature_names)))
                                  
-            # feature_names에 있는 name들이 str 형식인지 check
+            # Check if the names in feature_names are of type str.
             for feature_name in self.feature_names:
                 if not isinstance(feature_name, str):
                     raise ValueError('invalid type %s found in '
