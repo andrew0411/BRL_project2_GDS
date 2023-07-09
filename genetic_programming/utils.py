@@ -20,7 +20,7 @@ def check_random_state(seed):
 
 def _get_n_jobs(n_jobs):
     """
-    Computation 계산할 때 몇개의 CPU 이용할 건지
+    Number of CPUs during the computation
     
     Parameters:
         n_jobs (int) -- Number of jobs stated in joblib convention.
