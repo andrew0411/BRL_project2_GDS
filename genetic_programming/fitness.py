@@ -7,18 +7,18 @@ __all__ = ['make_fitness']
 class _Fitness(object):
 
     """
-    Population 내의 프로그램에 대해 fitness 를 측정하는 metric
+    Metric for measuring fitness of programs within the population
     
     Parameters:
         function (callable) -- a function with signature function that returns a floating point number
-        greater_is_better (boolean) -- whether a higher value from 'function' indicates a better fit. 해당 function의 값이 큰 게 좋은 것인지 작은게 좋은 것인지 설정 
+        greater_is_better (boolean) -- whether a higher value from 'function' indicates a better fit. Determine whether a larger or smaller value of the function is desirable 
 
     """
 
     def __init__(self, function, greater_is_better):
         self.function = function
         self.greater_is_better = greater_is_better
-        self.sign = 1 if greater_is_better else -1 # function이 큰 값이 좋으면 부호 양수
+        self.sign = 1 if greater_is_better else -1 # If a larger value is better, the sign should be positive
 
     def __call__(self, *args):
         return self.function(*args)
@@ -35,8 +35,8 @@ def make_fitness(function, greater_is_better):
     true relationship.
     
     Parameters:
-        function (callable) -- 위의 _Fitness 객체의 fitness와 동일
-        greater_is_better (bool) -- 위의 _Fitness 객체의 greater_is_better과 동일
+        function (callable) -- Equivalent to the fitness attribute in the above _Fitness object.
+        greater_is_better (bool) -- Equivalent to the greater_is_better attribute in the above _Fitness object.
     """
     return _Fitness(function=function,
                     greater_is_better=greater_is_better)
