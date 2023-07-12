@@ -666,7 +666,7 @@ class SymbolicRegressor(BaseSymbolic, RegressorMixin):
                  const_range=(-1., 1.),
                  init_depth=(2, 6),
                  init_method='half and half',
-                 function_set=('add', 'sub', 'mul', 'div', 'sqrt' ,'log' , 'abs', 'neg', 'inv', 'pow2', 'pow3'),
+                 function_set=('add', 'sub', 'mul', 'div', 'sqrt' ,'log' , 'abs', 'neg', 'inv', 'pow2'),
                  metric='mean absolute error',
                  parsimony_coefficient=0.001,
                  p_crossover=0.9,
