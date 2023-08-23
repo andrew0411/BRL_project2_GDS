@@ -1,5 +1,7 @@
 # BRL_project2_GDS
 
+[**Lee, J.**, Shin, S., Lee, J., Han, Y. K., Lee, W., & Son, Y. (2023). Genetic descriptor search algorithm for predicting hydrogen adsorption free energy of 2D material. Scientific Reports, 13(1), 12729.](https://www.nature.com/articles/s41598-023-39696-0)
+
 - Organization : Basic Research Laboratory, Ministry of Science and ICT
 - Topic : "Descriptor search algorithm for material property prediction"
 - Duration : 2021.09 ~ 2022.09
